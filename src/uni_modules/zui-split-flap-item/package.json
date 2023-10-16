@@ -1,7 +1,7 @@
 {
   "id": "zui-split-flap-item",
   "displayName": "复古翻牌式显示器子组件，复古计数器",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "一款复古翻牌式显示器子组件，复古计数器。支持显示数字，字母，设置颜色与字体",
   "keywords": [
     "复古",

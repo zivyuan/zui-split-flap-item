@@ -12,16 +12,16 @@
       <zui-split-flap-item :char="chars[2]" />
       <zui-split-flap-item :char="chars[3]" />
       <text class="colon">:</text>
-      <zui-split-flap-item :char="chars[4]" />
-      <zui-split-flap-item :char="chars[5]" />
+      <zui-split-flap-item color="#D12E26" :char="chars[4]" />
+      <zui-split-flap-item color="#D12E26" :char="chars[5]" />
     </view>
     <view class="demo-container">
       <zui-split-flap-item :char="airport[0]" />
-      <zui-split-flap-item :char="airport[1]" :delay="200" />
+      <zui-split-flap-item color="#D12E26" :char="airport[1]" :delay="200" />
       <zui-split-flap-item :char="airport[2]" :delay="400" />
-      <zui-split-flap-item :char="airport[3]" :delay="600" />
+      <zui-split-flap-item color="#D12E26" :char="airport[3]" :delay="600" />
       <zui-split-flap-item :char="airport[4]" :delay="800" />
-      <zui-split-flap-item :char="airport[5]" :delay="1000" />
+      <zui-split-flap-item color="#D12E26" :char="airport[5]" :delay="1000" />
     </view>
   </view>
 </template>
@@ -41,6 +41,8 @@ export default {
 
       airport: "abcdef",
       airportIId: 0,
+
+      char: 'A',
     };
   },
   onLoad() {},
@@ -78,46 +80,19 @@ export default {
     updateAirport() {
       this.stopUpdateAirport()
 
-      const ap = [
-        "ZBDT",
-        "ZUDX",
-        "ZUDC",
-        "ZYDD",
-        "ZPDQ",
-        "ZYTL",
-        "ZPDL",
-        "ZLDH",
-        "ZSDY",
-        "ZYDQ",
-        "ZBDS",
-        "ZGDY",
-        "ZHEC",
-        "ZHES",
-        "ZLYA",
-        "ZBER",
-        "ZSFA",
-        "ZGFS",
-        "ZSFZ",
-        "ZSFY",
-        "ZYFY",
-        "ZWFY",
-        "ZUGH",
-        "ZLGM",
-        "ZUGU",
-      ];
-      const na = ["AF", "AL", "ZH", "CN", "US", "EN"];
-
-      this.airport =
-        na[Math.floor(Math.random() * na.length)] +
-        ap[Math.floor(Math.random() * na.length)];
-
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+      this.airport = new Array(6).fill(null).map(_ => chars[Math.floor(Math.random() * 26)])
       this.airportIId = setTimeout(() => {
         this.updateAirport()
-      }, 5000)
+      }, 2000)
     },
 
     stopUpdateAirport() {
       clearTimeout(this.airportIId)
+    },
+
+    setChar() {
+      this.char = ('ABCDEFGHIJKLMNOPQRSTUVWXYZ').split('')[Math.floor(Math.random() * 26)]
     }
   },
 };

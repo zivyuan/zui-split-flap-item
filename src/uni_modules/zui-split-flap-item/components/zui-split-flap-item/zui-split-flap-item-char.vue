@@ -1,21 +1,30 @@
 <template>
   <view :class="['zui-split-flap-item-char', position, layer, animate]">
-    <img v-if="position === 'top'" src="../../assets/zui-split-flap-item-top.png" :width="width" :height="height" />
-    <img v-if="position === 'bottom'" src="../../assets/zui-split-flap-item-bottom.png" :width="width" :height="height" />
+    <img
+      v-if="position === 'top'"
+      src="../../assets/zui-split-flap-item-top.svg"
+      :width="width"
+      :height="height"
+    />
+    <img
+      v-if="position === 'bottom'"
+      src="../../assets/zui-split-flap-item-bottom.svg"
+      :width="width"
+      :height="height"
+    />
     <view class="zui-split-flap-item-char-text">{{ char }}</view>
     <view class="zui-split-flap-item-char-shadow"></view>
   </view>
 </template>
 
 <script>
-
 /**
  *
  *  pagename
  *
  */
 export default {
-  name: 'zui-split-flap-item-char',
+  name: "zui-split-flap-item-char",
 
   components: {},
 
@@ -23,12 +32,12 @@ export default {
     layer: {
       type: String,
       // 'char' | 'animate'
-      default: 'char',
+      default: "char",
     },
 
     char: {
       type: [String, Number],
-      default: '0',
+      default: "0",
     },
 
     width: {
@@ -43,36 +52,44 @@ export default {
 
     position: {
       type: String,
-      default: 'top',
+      default: "top",
     },
 
     duration: {
       type: Number,
       default: 600,
-    }
+    },
   },
 
   data() {
     return {
       // 动画时长
-      prevChar: '0',
-      animate: this.layer === 'animate' ? 'animate-flip' : '',
-    }
+      prevChar: "0",
+      animate: this.layer === "animate" ? "animate-flip" : "",
+    };
   },
 
   watch: {
     char(n, o) {
-      if (this.layer !== 'animate') return
+      if (this.layer === "animate") {
+        this.animate = "";
+        setTimeout(() => {
+          this.animate = "animate-flip";
+        }, 30);
+      }
 
-      this.animate = ''
-      setTimeout(() => {
-        this.animate = 'animate-flip'
-      }, 30)
-    }
+      if (this.layer === "char" && this.position === "bottom") {
+        // 阴影动效
+        this.animate = "";
+        setTimeout(() => {
+          this.animate = "animate-shadow";
+        }, 30);
+      }
+    },
   },
 
   methods: {},
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -106,7 +123,18 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  line-height:  0; //calc(var(--zui-split-flap-item-char-height) * 2);
+  line-height: 0; //calc(var(--zui-split-flap-item-char-height) * 2);
+}
+
+.zui-split-flap-item-char-shadow {
+  top: 0;
+  left: 0;
+  z-index: 15;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 10rpx;
+  opacity: 0;
 }
 
 .top,
@@ -135,6 +163,10 @@ export default {
     top: 0;
     transform: translateY(-45%);
   }
+
+  .zui-split-flap-item-char-shadow  {
+    height: 0%;
+  }
 }
 
 .animate {
@@ -152,11 +184,27 @@ export default {
   &.top {
     transform: translate(-50%, -102%) rotateX(270deg);
     transition-duration: var(--zui-split-flap-item-duration-half);
+    .zui-split-flap-item-char-shadow {
+      opacity: 1;
+      transition-duration: var(--zui-split-flap-item-duration-half);
+    }
   }
   &.bottom {
     transform: translate(-50%, 2%) rotateX(360deg);
     transition-duration: var(--zui-split-flap-item-duration-half);
     transition-delay: var(--zui-split-flap-item-duration-half);
+  }
+}
+
+.animate-shadow {
+  &.bottom {
+    .zui-split-flap-item-char-shadow {
+      opacity: 0.8;
+      height: 130%;
+      transition: opacity calc(var(--zui-split-flap-item-duration-half) * 0.2)
+          linear,
+        height calc(var(--zui-split-flap-item-duration-half) * 1.8) linear;
+    }
   }
 }
 </style>

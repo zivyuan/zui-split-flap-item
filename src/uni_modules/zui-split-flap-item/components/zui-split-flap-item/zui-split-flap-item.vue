@@ -59,11 +59,12 @@ export default {
     font: { type: String, default: '"Robot", "monospace", "DIN Condensed"' },
     // 延迟
     delay: { type: Number, default: 0 },
+    duration: { type: Number, default: 400 },
   },
 
   data() {
     return {
-      duration: 400,
+      // duration: 400,
       prevChar: '0',
       flip: false,
       topChar: this.char,
