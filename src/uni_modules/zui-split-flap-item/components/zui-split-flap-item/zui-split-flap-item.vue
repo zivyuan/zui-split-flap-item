@@ -105,11 +105,11 @@ export default {
         "--zui-split-flap-item-height": `${this.sizes.height}px`,
         "--zui-split-flap-item-char-width": `${this.sizes.charWidth}px`,
         "--zui-split-flap-item-char-height": `${this.sizes.charHeight}px`,
-        "--zui-split-flap-item-char-color": this.color,
+        "--zui-split-flap-item-char-color": this.color || '#333',
         "--zui-split-flap-item-char-size": `${this.sizes.charWidth * 0.6}px`,
         "--zui-split-flap-item-duration": this.duration + 'ms',
         "--zui-split-flap-item-duration-half": (this.duration / 2) + 'ms',
-        "--zui-split-flap-item-char-font": this.font,
+        "--zui-split-flap-item-char-font": this.font || '"Robot", "monospace", "DIN Condensed"',
       };
 
       return Object.keys(style)
